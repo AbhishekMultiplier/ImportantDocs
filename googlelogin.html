@@ -1,0 +1,27 @@
+<head>
+    <meta name="google-signin-client_id"
+        content="684983428464-1cvv0o9739vkm6m17jur9cu1k5fdlfbc.apps.googleusercontent.com" />
+</head>
+<p class="g-signin2" id="my-signin2" data-onsuccess="getGmailData"></p>
+<script type="text/javascript">
+    function getGmailData(googleUser) {
+        var userdata = {};
+        userdata["id"] = googleUser.getBasicProfile().getId();
+        userdata["Name"] = googleUser.getBasicProfile().getName();
+        userdata["ImageUrl"] = googleUser.getBasicProfile().getImageUrl();
+        userdata["Email"] = googleUser.getBasicProfile().getEmail();
+        googleUser.disconnect()
+        $('#gimage').attr('src', userdata["ImageUrl"]);
+        $('#gname').append(userdata['Name']);
+        $('#gemail').append(userdata['Email']);
+        console.log(JSON.stringify(userdata));
+
+        if (confirm(userdata["Email"]))
+        {
+
+
+            window.location.href = "<?php echo base_url(); ?>./index.php/welcome/login?user=" + JSON.stringify(userdata);
+        }
+
+    }
+</script>
